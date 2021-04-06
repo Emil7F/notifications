@@ -10,10 +10,15 @@ import pl.emil7f.notifications.dto.NotificationInfoDto;
 public class RabbitMQListener {
 
     Logger logger = LoggerFactory.getLogger(RabbitMQListener.class);
+    private final EmailSender emailSender;
+
+    public RabbitMQListener(EmailSender emailSender) {
+        this.emailSender = emailSender;
+    }
 
     @RabbitListener(queues = "enroll_finish")
     public void handleFinishEnroll(NotificationInfoDto notificationInfo) {
-    logger.info(notificationInfo.toString());
-
+        emailSender.sendEmails(notificationInfo);
+        logger.info(notificationInfo.toString());
     }
 }

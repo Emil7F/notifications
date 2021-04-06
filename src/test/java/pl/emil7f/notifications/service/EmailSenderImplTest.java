@@ -3,6 +3,7 @@ package pl.emil7f.notifications.service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import pl.emil7f.notifications.dto.EmailDto;
 
 @SpringBootTest
 public class EmailSenderImplTest {
@@ -13,6 +14,11 @@ public class EmailSenderImplTest {
 
     @Test
     public void sendEmailTest() {
-        emailSender.sendEmail("emil7f7@gmail.com", "Witaj", "hello");
+        EmailDto emailDto = EmailDto.builder()
+                .to("emil7f7@gmail.com")
+                .title("title")
+                .content("content")
+                .build();
+        emailSender.sendEmail(emailDto);
     }
 }
